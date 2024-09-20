@@ -10,7 +10,7 @@ use tauri::{AppHandle, Manager};
 #[tauri::command]
 pub async fn fetch_animes(app_handle: AppHandle) -> Result<Vec<Anime>, AppError> {
     let pool = get_db(&app_handle).await?;
-    query_animes(&pool, "SELECT * FROM Animes").await
+    query_animes(&pool, "SELECT * FROM Animes ORDER BY created_at DESC").await
 }
 
 #[tauri::command]

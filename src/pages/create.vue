@@ -2,7 +2,17 @@
 
 import {ArrowLeft} from 'lucide-vue-next'
 import AnimeForm from "~/components/AnimeForm.vue";
+import type {AnimeWithoutId} from "~/types";
 
+
+import {useRouter} from "#vue-router";
+const animeStore = useAnimeStore()
+const router = useRouter()
+
+const handleSubmit = async (anime: AnimeWithoutId) => {
+  await animeStore.addAnime(anime)
+  await router.push('/')
+}
 
 </script>
 
@@ -16,7 +26,7 @@ import AnimeForm from "~/components/AnimeForm.vue";
         </NuxtLink>
       </Button>
     </div>
-    <anime-form/>
+    <anime-form  @submit="handleSubmit"/>
   </div>
 </template>
 
