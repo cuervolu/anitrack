@@ -16,7 +16,7 @@ fn setup_logger(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> 
         .level_for("tauri", log::LevelFilter::Warn)
         .level_for("wry", log::LevelFilter::Warn)
         .level_for("tracing", log::LevelFilter::Warn)
-        .level_for("cortex_lib", log::LevelFilter::Info)
+        .level_for("anitrack_lib", log::LevelFilter::Info)
         .split(app.handle())?;
 
     // on debug builds, set up the DevTools plugin and pipe the logger from tauri-plugin-log
