@@ -8,14 +8,13 @@ import {ArrowLeft, RefreshCw, Folder, Download} from "lucide-vue-next"
 
 import {Button} from "@/components/ui/button"
 import {Label} from "@/components/ui/label"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
 import {Separator} from "@/components/ui/separator"
 import {useToast} from "@/components/ui/toast"
 import ModeToggle from "~/components/ModeToggle.vue"
 import {useUpdater} from '~/composables/useUpdater'
+import FontSelector from "~/components/FontSelector.vue";
 
 const {toast} = useToast()
-const font = ref('inter')
 const appVersion = await getVersion()
 const appName = await getName()
 const logDir = await appLogDir()
@@ -29,11 +28,6 @@ const {
   checkForUpdates,
   downloadAndInstallUpdate
 } = useUpdater()
-
-const handleFontChange = (newFont: string) => {
-  font.value = newFont
-  // Aquí iría la lógica para cambiar la fuente en toda la aplicación
-}
 
 const openFolder = async (path: string) => {
   try {
@@ -66,19 +60,7 @@ const openFolder = async (path: string) => {
         <ModeToggle/>
       </div>
       <Separator/>
-      <div>
-        <h2 class="text-xl font-semibold mb-2">Fuente de texto</h2>
-        <Select v-model="font" @update:model-value="handleFontChange">
-          <SelectTrigger class="w-[180px]">
-            <SelectValue placeholder="Selecciona una fuente"/>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="inter">Inter</SelectItem>
-            <SelectItem value="roboto">Roboto</SelectItem>
-            <SelectItem value="opensans">Open Sans</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <FontSelector />
       <Separator/>
       <div>
         <h2 class="text-xl font-semibold mb-2">Ubicaciones de archivos</h2>

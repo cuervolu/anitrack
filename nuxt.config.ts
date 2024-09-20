@@ -91,6 +91,31 @@ export default defineNuxtConfig({
         provider: 'fontsource',
         weights: ['400', '500', '600', '700', '800', '900'],
       },
+      {
+        name: 'Roboto',
+        provider: 'fontsource',
+        weights: ['400', '500', '700'],
+      },
+      {
+        name: 'Open Sans',
+        provider: 'fontsource',
+        weights: ['400', '600', '700'],
+      },
+      {
+        name: "Karla",
+        provider: "fontsource",
+        weights: ["400", "500", "600", "700", "800"],
+      },
+      {
+        name: "Inter",
+        provider: "fontsource",
+        weights: ["400", "500", "600", "700", "800"],
+      },
+      {
+        name: "Geist Mono",
+        provider: "fontsource",
+        weights: ["400", "500", "600", "700", "800"],
+      }
     ],
   },
 
