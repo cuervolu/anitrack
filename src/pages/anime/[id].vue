@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { ArrowLeft, Calendar, Star, Play, Edit } from 'lucide-vue-next'
-import { useAnimeStore } from '@/stores'
-import { Badge } from "~/components/ui/badge"
-import type { Anime, Episode } from '@/types'
+import {ref, onMounted, computed} from 'vue'
+import {ArrowLeft, Calendar, Star, Play, Edit} from 'lucide-vue-next'
+import {useAnimeStore} from '@/stores'
+import {Badge} from "~/components/ui/badge"
+import type {Anime, Episode} from '@/types'
 
 const route = useRoute()
 const animeStore = useAnimeStore()
@@ -31,7 +31,7 @@ const watchedPercentage = computed(() => {
     <div class="mb-6">
       <NuxtLink to="/" class="inline-flex items-center">
         <Button variant="ghost">
-          <ArrowLeft class="mr-2 h-4 w-4" />
+          <ArrowLeft class="mr-2 h-4 w-4"/>
           Volver al listado
         </Button>
       </NuxtLink>
@@ -52,20 +52,22 @@ const watchedPercentage = computed(() => {
           <Badge variant="outline">{{ animeData.user_status }}</Badge>
         </div>
         <div class="flex items-center space-x-2">
-          <Star class="text-yellow-400" />
-          <span class="text-xl font-semibold">{{ animeData.user_rating?.toFixed(1) || 'N/A' }}</span>
+          <Star class="text-yellow-400"/>
+          <span class="text-xl font-semibold">{{
+              animeData.user_rating?.toFixed(1) || 'N/A'
+            }}</span>
         </div>
         <div class="space-y-2">
           <div class="flex items-center space-x-2">
-            <Calendar class="text-gray-500" />
+            <Calendar class="text-gray-500"/>
             <span>Estreno: {{ animeData.release_date }}</span>
           </div>
           <div v-if="animeData.end_date" class="flex items-center space-x-2">
-            <Calendar class="text-gray-500" />
+            <Calendar class="text-gray-500"/>
             <span>Finalización: {{ animeData.end_date }}</span>
           </div>
         </div>
-        <Separator />
+        <Separator/>
         <div class="space-y-2">
           <h2 class="text-2xl font-semibold">Progreso</h2>
           <div class="flex items-center justify-between">
@@ -74,16 +76,18 @@ const watchedPercentage = computed(() => {
           {{ watchedPercentage.toFixed(0) }}%
         </span>
           </div>
-          <Progress :value="watchedPercentage" class="w-full" />
+          <Progress :value="watchedPercentage" class="w-full"/>
         </div>
         <div class="flex space-x-4">
           <Button>
-            <Play class="mr-2 h-4 w-4" />
+            <Play class="mr-2 h-4 w-4"/>
             Continuar viendo
           </Button>
-          <Button variant="outline">
-            <Edit class="mr-2 h-4 w-4" />
-            Editar información
+          <Button variant="outline" as-child>
+            <NuxtLink :to="`/anime/edit/${animeData.id}`">
+              <Edit class="mr-2 h-4 w-4"/>
+              Editar información
+            </NuxtLink>
           </Button>
         </div>
       </div>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
 import {ArrowLeft} from 'lucide-vue-next'
+import AnimeForm from "~/components/AnimeForm.vue";
 
-import CreateAnimeForm from "~/components/CreateAnimeForm.vue";
+
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import CreateAnimeForm from "~/components/CreateAnimeForm.vue";
         </NuxtLink>
       </Button>
     </div>
-    <create-anime-form/>
+    <anime-form/>
   </div>
 </template>
 

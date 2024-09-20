@@ -1,5 +1,6 @@
 use std::fs;
 use std::path::PathBuf;
+use log::info;
 use crate::commands::{query_animes, query_single_anime};
 use crate::db::get_db;
 use crate::db::models::{Anime, Episode, NewAnime};
@@ -37,7 +38,8 @@ pub async fn add_anime(app_handle: AppHandle, anime: NewAnime) -> Result<Anime, 
 }
 
 #[tauri::command]
-pub async fn update_anime(app_handle: AppHandle, id: i64, anime: Anime) -> Result<Anime, AppError> {
+pub async fn update_anime(app_handle: AppHandle, id: i64, anime: NewAnime) -> Result<Anime, AppError> {
+    info!("Updating anime with id: {}", id);
     let pool = get_db(&app_handle).await?;
     sqlx::query(
         "UPDATE Animes

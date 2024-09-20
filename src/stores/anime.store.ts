@@ -43,6 +43,7 @@ export const useAnimeStore = defineStore('anime', () => {
       }
       loading.value = false
     } catch (err) {
+      await logError(`Error: ${err}`);
       error.value = 'No se pudo actualizar el anime. Por favor, verifica los cambios e inténtalo de nuevo.'
       loading.value = false
     }
