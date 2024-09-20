@@ -1,27 +1,35 @@
 <script setup lang="ts">
-import {convertFileSrc, invoke} from "@tauri-apps/api/core";
-import {open} from '@tauri-apps/plugin-dialog';
+import { convertFileSrc, invoke } from "@tauri-apps/api/core";
+import { open } from '@tauri-apps/plugin-dialog';
 
-import {CalendarDate, type DateValue} from '@internationalized/date';
-import {CalendarIcon, UploadIcon} from 'lucide-vue-next'
-import {useForm} from 'vee-validate'
-import {toTypedSchema} from '@vee-validate/zod'
+import { CalendarDate, type DateValue } from '@internationalized/date';
+import { CalendarIcon, UploadIcon } from 'lucide-vue-next'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
 
 import * as z from 'zod'
-import {Button} from '@/components/ui/button'
-import {Input} from '@/components/ui/input'
-import {Textarea} from '@/components/ui/textarea'
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select'
-import {Calendar} from '@/components/ui/calendar'
-import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
-import {FormField, FormItem, FormLabel, FormControl, FormMessage} from '@/components/ui/form'
-import {useToast} from "@/components/ui/toast"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Calendar } from '@/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { useToast } from "@/components/ui/toast"
 
-import {useAnimeStore} from '~/stores'
-import type {AnimeWithoutId} from '@/types'
+import { useAnimeStore } from '~/stores'
+import type { AnimeWithoutId, Anime } from '@/types'
+
+const props = defineProps<{
+  anime?: Anime
+}>()
+
+const emit = defineEmits<{
+  (e: 'submit', anime: AnimeWithoutId): void
+}>()
 
 const animeStore = useAnimeStore()
-const {toast} = useToast()
+const { toast } = useToast()
 
 const formSchema = toTypedSchema(z.object({
   title: z.string().min(1, 'El título es requerido'),
@@ -37,7 +45,7 @@ const formSchema = toTypedSchema(z.object({
 
 const form = useForm({
   validationSchema: formSchema,
-  initialValues: {
+  initialValues: props.anime || {
     title: "",
     description: null,
     image_path: null,
@@ -67,7 +75,7 @@ const handleImageUpload = async () => {
     });
 
     if (selected) {
-      const savedPath = await invoke('save_image', {sourcePath: selected as string});
+      const savedPath = await invoke('save_image', { sourcePath: selected as string });
       const assetUrl = convertFileSrc(savedPath as string);
       form.setFieldValue('image_path', assetUrl);
     }
@@ -98,16 +106,16 @@ const formatDate = (dateString: string | null) => {
 
 const onSubmit = form.handleSubmit(async (values) => {
   try {
-    await animeStore.addAnime(values as AnimeWithoutId)
+    emit('submit', values as AnimeWithoutId)
     toast({
       title: "Éxito",
-      description: "El anime ha sido añadido correctamente.",
+      description: props.anime ? "El anime ha sido actualizado correctamente." : "El anime ha sido añadido correctamente.",
     })
-    form.resetForm()
+    if (!props.anime) form.resetForm()
   } catch (error) {
     toast({
       title: "Error",
-      description: animeStore.error || "Hubo un error al añadir el anime.",
+      description: animeStore.error || "Hubo un error al procesar el anime.",
       variant: "destructive",
     })
   }
@@ -117,7 +125,10 @@ const onSubmit = form.handleSubmit(async (values) => {
 <template>
   <form @submit="onSubmit"
         class="space-y-6 max-w-2xl mx-auto p-6 bg-muted/40 rounded-lg shadow text-foreground py-2">
-    <h2 class="text-2xl font-bold mb-6 my-2 text-center">Añadir Nuevo Anime</h2>
+    <h2 class="text-2xl font-bold mb-6 my-2 text-center">
+      {{ props.anime ? 'Actualizar Anime' : 'Añadir Nuevo Anime' }}
+    </h2>
+
 
     <FormField v-slot="{ componentField }" name="title">
       <FormItem>
@@ -268,6 +279,9 @@ const onSubmit = form.handleSubmit(async (values) => {
       </FormItem>
     </FormField>
 
-    <Button type="submit" class="w-full">Añadir Anime</Button>
+
+    <Button type="submit" class="w-full">
+      {{ props.anime ? 'Actualizar Anime' : 'Añadir Anime' }}
+    </Button>
   </form>
 </template>
