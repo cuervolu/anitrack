@@ -18,10 +18,10 @@ defineProps<{
         />
         <div>
           <h3 class="font-bold">{{ anime.title }}</h3>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-muted-foreground">
             Estado: {{ anime.user_status }}
           </p>
-          <p v-if="anime.total_episodes" class="text-sm text-gray-500">
+          <p v-if="anime.total_episodes" class="text-sm text-muted-foreground">
             Episodios: {{ anime.total_episodes }}
           </p>
         </div>
