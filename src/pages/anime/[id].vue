@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import {ref, onMounted, computed} from 'vue'
-import {ArrowLeft, Calendar, Star, Play, Edit} from 'lucide-vue-next'
-import {useAnimeStore} from '@/stores'
-import {Badge} from "~/components/ui/badge"
-import type {Anime, Episode} from '@/types'
+import { ref, onMounted, computed } from 'vue'
+import { ArrowLeft, Calendar, Star, Play, Edit } from 'lucide-vue-next'
+import { useAnimeStore } from '@/stores'
+import { Badge } from "~/components/ui/badge"
+import { Button } from "~/components/ui/button"
+import { Progress } from "~/components/ui/progress"
+import { Separator } from "~/components/ui/separator"
+import { Skeleton } from "~/components/ui/skeleton"
+import type { Anime, Episode } from '@/types'
 
 const route = useRoute()
 const animeStore = useAnimeStore()
@@ -24,10 +28,10 @@ const watchedPercentage = computed(() => {
   if (!animeData.value?.total_episodes) return 0
   return (watchedEpisodes.value / animeData.value.total_episodes) * 100
 })
-
 </script>
+
 <template>
-  <div v-if="animeData" class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-8">
     <div class="mb-6">
       <NuxtLink to="/" class="inline-flex items-center">
         <Button variant="ghost">
@@ -36,7 +40,38 @@ const watchedPercentage = computed(() => {
         </Button>
       </NuxtLink>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
+    <div v-if="animeStore.loading" class="grid md:grid-cols-3 gap-8">
+      <div class="md:col-span-1">
+        <Skeleton class="w-full h-[600px] rounded-lg" />
+      </div>
+      <div class="md:col-span-2 space-y-6">
+        <Skeleton class="h-12 w-3/4" />
+        <Skeleton class="h-20 w-full" />
+        <div class="flex flex-wrap gap-2">
+          <Skeleton class="h-6 w-24" />
+          <Skeleton class="h-6 w-24" />
+        </div>
+        <div class="flex items-center space-x-2">
+          <Skeleton class="h-6 w-6" />
+          <Skeleton class="h-6 w-16" />
+        </div>
+        <div class="space-y-2">
+          <Skeleton class="h-6 w-48" />
+          <Skeleton class="h-6 w-48" />
+        </div>
+        <Separator />
+        <div class="space-y-2">
+          <Skeleton class="h-8 w-32" />
+          <Skeleton class="h-6 w-full" />
+          <Skeleton class="h-4 w-full" />
+        </div>
+        <div class="flex space-x-4">
+          <Skeleton class="h-10 w-40" />
+          <Skeleton class="h-10 w-40" />
+        </div>
+      </div>
+    </div>
+    <div v-else-if="animeData" class="grid md:grid-cols-3 gap-8">
       <div class="md:col-span-1">
         <img
             :src="animeData.image_path || '/placeholder.svg?height=600&width=400&text=No Image'"
@@ -73,8 +108,8 @@ const watchedPercentage = computed(() => {
           <div class="flex items-center justify-between">
             <span>Episodios vistos: {{ watchedEpisodes }}/{{ animeData.total_episodes }}</span>
             <span class="text-sm text-gray-500">
-          {{ watchedPercentage.toFixed(0) }}%
-        </span>
+              {{ watchedPercentage.toFixed(0) }}%
+            </span>
           </div>
           <Progress :value="watchedPercentage" class="w-full"/>
         </div>
@@ -92,10 +127,11 @@ const watchedPercentage = computed(() => {
         </div>
       </div>
     </div>
-  </div>
-  <div v-else class="container mx-auto px-4 py-8">
-    <p v-if="animeStore.loading">Cargando...</p>
-    <p v-else-if="animeStore.error">{{ animeStore.error }}</p>
-    <p v-else>No se encontró el anime</p>
+    <div v-else-if="animeStore.error" class="text-center text-destructive">
+      {{ animeStore.error }}
+    </div>
+    <div v-else class="text-center">
+      No se encontró el anime
+    </div>
   </div>
 </template>

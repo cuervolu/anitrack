@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, computed} from 'vue'
 import {Search, PlusCircle} from 'lucide-vue-next'
 import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import {ScrollArea} from '@/components/ui/scroll-area'
+import {Skeleton} from '@/components/ui/skeleton'
 import AnimeCard from '@/components/AnimeCard.vue'
 import {useAnimeStore} from '~/stores'
 
@@ -39,8 +40,14 @@ const filteredAnimes = computed(() => {
     </header>
     <ScrollArea class="flex-1 p-4">
       <h2 class="text-2xl font-bold mb-4">Lista de Animes</h2>
-      <div v-if="animeStore.loading" class="text-center">
-        Cargando animes...
+      <div v-if="animeStore.loading" class="space-y-4">
+        <div v-for="n in 5" :key="n" class="flex items-center space-x-4">
+          <Skeleton class="h-12 w-12 rounded-full"/>
+          <div class="space-y-2">
+            <Skeleton class="h-4 w-[250px]"/>
+            <Skeleton class="h-4 w-[200px]"/>
+          </div>
+        </div>
       </div>
       <div v-else-if="animeStore.error" class="text-center text-destructive">
         {{ animeStore.error }}
