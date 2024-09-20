@@ -1,6 +1,8 @@
+mod commands;
 mod db;
 mod error;
 
+use commands::anime;
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_log::RotationStrategy;
 
@@ -35,7 +37,6 @@ fn setup_logger(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> 
     Ok(())
 }
 
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let builder = tauri::Builder::default()
@@ -53,6 +54,15 @@ pub fn run() {
         .plugin(tauri_plugin_window_state::Builder::new().build())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_store::Builder::new().build())
+        .invoke_handler(tauri::generate_handler![
+            anime::add_anime,
+            anime::delete_anime,
+            anime::fetch_animes,
+            anime::update_anime,
+            anime::save_image,
+            anime::get_anime_by_id,
+             anime::get_episodes_by_anime_id
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

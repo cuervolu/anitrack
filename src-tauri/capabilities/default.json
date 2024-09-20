@@ -20,7 +20,14 @@
     "shell:default",
     "process:default",
     "fs:default",
+    {
+      "identifier": "fs:allow-app-read",
+      "allow": [{ "path": "$APPDATA/*" }]
+    },
     "dialog:default",
+    "dialog:allow-ask",
+    "dialog:allow-open",
+    "dialog:allow-save",
     "clipboard-manager:default",
     "window-state:allow-restore-state",
     "window-state:allow-save-window-state",
@@ -31,6 +38,7 @@
     "process:allow-exit",
     "process:allow-restart",
     "sql:allow-load",
-    "sql:allow-execute"
+    "sql:allow-execute",
+    "log:default"
   ]
 }

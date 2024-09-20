@@ -1,11 +1,10 @@
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 pub fn get_migrations() -> Vec<Migration> {
-    vec![
-        Migration {
-            version: 1,
-            description: "create_initial_tables",
-            sql: r#"
+    vec![Migration {
+        version: 1,
+        description: "create_initial_tables",
+        sql: r#"
                 -- Tabla de Animes
                 CREATE TABLE IF NOT EXISTS Animes (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +27,7 @@ pub fn get_migrations() -> Vec<Migration> {
                     name TEXT NOT NULL UNIQUE
                 );
 
-                -- Tabla de relación Anime-Género
+                -- Tabla de relación AnimeTypes-Género
                 CREATE TABLE IF NOT EXISTS AnimeGenres (
                     anime_id INTEGER,
                     genre_id INTEGER,
@@ -70,7 +69,6 @@ pub fn get_migrations() -> Vec<Migration> {
                     UPDATE Animes SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
                 END;
             "#,
-            kind: MigrationKind::Up,
-        },
-    ]
+        kind: MigrationKind::Up,
+    }]
 }

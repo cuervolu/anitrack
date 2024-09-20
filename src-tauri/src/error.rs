@@ -2,9 +2,6 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum AppError {
-    #[error("Failed to get app config directory")]
-    AppDataDir,
-
     #[error("Tauri error: {0}")]
     TauriError(#[from] tauri::Error),
 
@@ -16,7 +13,6 @@ pub enum AppError {
 
     #[error("Failed to open browser")]
     ShellError(#[from] tauri_plugin_shell::Error),
-
 }
 
 impl serde::Serialize for AppError {

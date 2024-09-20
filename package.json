@@ -16,6 +16,7 @@
     "clean": "npx nuxi cleanup && cd src-tauri/ && cargo clean"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.5",
     "@nuxt/eslint": "^0.5.7",
     "@nuxt/fonts": "^0.8.0",
     "@nuxtjs/color-mode": "^3.5.1",
@@ -25,6 +26,7 @@
     "@tauri-apps/plugin-clipboard-manager": "^2.0.0-rc.2",
     "@tauri-apps/plugin-dialog": "^2.0.0-rc",
     "@tauri-apps/plugin-fs": "^2.0.0-rc",
+    "@tauri-apps/plugin-log": "^2.0.0-rc",
     "@tauri-apps/plugin-process": "^2.0.0-rc",
     "@tauri-apps/plugin-shell": "^2.0.0-rc",
     "@tauri-apps/plugin-sql": "^2.0.0-rc",
@@ -32,18 +34,22 @@
     "@tauri-apps/plugin-updater": "^2.0.0-rc",
     "@tauri-apps/plugin-window-state": "^2.0.0-rc",
     "@vee-validate/nuxt": "^4.13.2",
+    "@vee-validate/zod": "^4.13.2",
     "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^11.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "lucide-vue-next": "^0.441.0",
     "nuxt": "^3.13.0",
     "radix-vue": "^1.9.6",
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.13.2",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.0.0-rc.16",
