@@ -20,7 +20,7 @@
         "center": true,
         "minHeight": 600,
         "minWidth": 800,
-        "decorations": true
+        "decorations": false
       }
     ],
     "security": {
@@ -42,6 +42,9 @@
       "windows": {
         "installMode": "passive"
       }
+    },
+    "sql": {
+      "preload": ["sqlite:animetrack.db"]
     }
   },
   "bundle": {

@@ -29,6 +29,8 @@
     "store:allow-save",
     "store:allow-load",
     "process:allow-exit",
-    "process:allow-restart"
+    "process:allow-restart",
+    "sql:allow-load",
+    "sql:allow-execute"
   ]
 }

@@ -1,3 +1,6 @@
+mod db;
+mod error;
+
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_log::RotationStrategy;
 
@@ -46,7 +49,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_shell::init())
-        .plugin(tauri_plugin_sql::Builder::new().build())
+        .plugin(db::init_sql_plugin().build())
         .plugin(tauri_plugin_window_state::Builder::new().build())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_store::Builder::new().build())
