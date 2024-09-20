@@ -1,0 +1,37 @@
+{
+  "name": "anitrack",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tauri build",
+    "debug": "tauri build -d -b appimage",
+    "dev": "cross-env RUST_BACKTRACE=1 RUST_LOG=info tauri dev",
+    "nuxt:build": "nuxt build",
+    "nuxt:dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "tauri": "tauri",
+    "dependencies:check": "depcheck .",
+    "clean": "npx nuxi cleanup && cd src-tauri/ && cargo clean"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0-rc.5",
+    "@tauri-apps/plugin-clipboard-manager": "^2.0.0-rc.2",
+    "@tauri-apps/plugin-dialog": "^2.0.0-rc",
+    "@tauri-apps/plugin-fs": "^2.0.0-rc",
+    "@tauri-apps/plugin-process": "^2.0.0-rc",
+    "@tauri-apps/plugin-shell": "^2.0.0-rc",
+    "@tauri-apps/plugin-sql": "^2.0.0-rc",
+    "@tauri-apps/plugin-store": "^2.0.0-rc",
+    "@tauri-apps/plugin-updater": "^2.0.0-rc",
+    "@tauri-apps/plugin-window-state": "^2.0.0-rc",
+    "nuxt": "^3.13.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0-rc.16",
+    "cross-env": "^7.0.3"
+  }
+}

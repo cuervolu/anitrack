@@ -1,0 +1,60 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "anitrack",
+  "version": "0.1.0",
+  "identifier": "com.anitrack.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "bun nuxt:dev",
+    "beforeBuildCommand": "bun generate"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "AniTrack",
+        "width": 1100,
+        "height": 650,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "minHeight": 600,
+        "minWidth": 800,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "decorations": false
+      }
+    ],
+    "security": {
+      "csp": {
+        "default-src": "'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-inline' asset: https://asset.localhost",
+        "script-src": "'self' 'unsafe-eval'",
+        "connect-src": "'self' ipc: http://ipc.localhost tauri: asset: https://asset.localhost",
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self'"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEVFOTJBQ0JGRjVFRDk3NjUKUldSbGwrMzF2NnlTN3N5bUFkSWdBbFJBL2pCbXFkb2Nwd2lUamFLMUdFTk5BUXZvU3psYWhFeDcK",
+      "endpoints": [
+        "https://github.com/cuervolu/anitrack/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

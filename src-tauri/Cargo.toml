@@ -1,0 +1,50 @@
+[package]
+name = "anitrack"
+version = "0.1.0"
+description = "Track your animes and manage your watchlist"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.71"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "anitrack_lib"
+crate-type = ["staticlib", "cdylib", "lib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0.0-rc.12" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.0.0-rc.15" }
+tauri-plugin-log = { version = "2.0.0-rc" , features = ["colored"]}
+tauri-plugin-store = "2.0.0-rc"
+tauri-plugin-sql = { version = "2.0.0-rc", features = ["sqlite"] }
+tauri-plugin-shell = "2.0.0-rc"
+tauri-plugin-process = "2.0.0-rc"
+tauri-plugin-fs = "2.0.0-rc"
+tauri-plugin-dialog = "2.0.0-rc"
+tauri-plugin-clipboard-manager = "2.0.0-beta.0"
+tauri-plugin-devtools = "2.0.0-rc"
+tauri-plugin-decorum = "1.1.0"
+anyhow = "1.0.89"
+thiserror = "1.0.63"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-updater = "2.0.0-rc"
+tauri-plugin-window-state = "2.0.0-rc"
+
+[profile.dev]
+incremental = true # Compile your binary in smaller steps.
+
+[profile.release]
+codegen-units = 1 # Allows LLVM to perform better optimization.
+lto = true # Enables link-time-optimizations.
+opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+panic = "abort" # Higher performance by disabling panic handlers.
+strip = true # Ensures debug symbols are removed.
