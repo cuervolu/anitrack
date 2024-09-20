@@ -37,6 +37,8 @@
     "store:allow-load",
     "process:allow-exit",
     "process:allow-restart",
+    "updater:allow-check",
+    "updater:allow-download-and-install",
     "sql:allow-load",
     "sql:allow-execute",
     "log:default"

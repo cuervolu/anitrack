@@ -2,9 +2,12 @@ mod commands;
 mod db;
 mod error;
 
+use log::{error, info};
+use tauri::{Emitter, Manager};
 use commands::anime;
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_log::RotationStrategy;
+use tauri_plugin_updater::UpdaterExt;
 
 fn setup_logger(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     // create the log plugin as usual, but call split() instead of build()
@@ -37,11 +40,35 @@ fn setup_logger(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> 
     Ok(())
 }
 
+async fn check_update(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
+    info!("Checking for updates");
+    let update = app.updater().unwrap().check().await?;
+    if let Some(update) = update {
+        // The update is available, notify the main window
+        info!("Update available: {}", update.version);
+        let window = app.get_webview_window("main").unwrap();
+        window.emit("update-available", update.version)?;
+    }else { 
+        info!("No update available");
+    }
+    Ok(())
+}
+
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let builder = tauri::Builder::default()
         .setup(|app| {
             setup_logger(app)?;
+
+            let app_handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                if let Err(e) = check_update(app_handle).await {
+                    error!("Error checking for updates: {}", e);
+                }
+            });
+
+
             Ok(())
         });
     builder

@@ -1,37 +1,41 @@
 <script setup lang="ts">
-import {Button} from '@/components/ui/button'
-import {Moon, Sun} from 'lucide-vue-next'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import {computed} from 'vue'
+import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
+import {Label} from '@/components/ui/label'
+import {Moon, Sun, Laptop} from 'lucide-vue-next'
 
 const colorMode = useColorMode()
+
+const currentMode = computed({
+  get: () => colorMode.preference,
+  set: (value) => {
+    colorMode.preference = value
+  }
+})
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger as-child>
-      <Button variant="outline">
-        <Moon
-            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
-        <Sun
-            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
-        <span class="sr-only">Toggle theme</span>
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="colorMode.preference = 'light'">
-        Light
-      </DropdownMenuItem>
-      <DropdownMenuItem @click="colorMode.preference = 'dark'">
-        Dark
-      </DropdownMenuItem>
-      <DropdownMenuItem @click="colorMode.preference = 'system'">
-        System
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <RadioGroup v-model="currentMode" class="flex space-x-2">
+    <div class="flex items-center space-x-2">
+      <RadioGroupItem value="light" id="light"/>
+      <Label htmlFor="light" class="flex items-center cursor-pointer">
+        <Sun class="h-4 w-4 mr-2"/>
+        Claro
+      </Label>
+    </div>
+    <div class="flex items-center space-x-2">
+      <RadioGroupItem value="dark" id="dark"/>
+      <Label htmlFor="dark" class="flex items-center cursor-pointer">
+        <Moon class="h-4 w-4 mr-2"/>
+        Oscuro
+      </Label>
+    </div>
+    <div class="flex items-center space-x-2">
+      <RadioGroupItem value="system" id="system"/>
+      <Label htmlFor="system" class="flex items-center cursor-pointer">
+        <Laptop class="h-4 w-4 mr-2"/>
+        Sistema
+      </Label>
+    </div>
+  </RadioGroup>
 </template>
