@@ -46,7 +46,7 @@ const watchedPercentage = computed(() => {
       </div>
       <div class="md:col-span-2 space-y-6">
         <h1 class="text-4xl font-bold">{{ animeData.title }}</h1>
-        <p class="text-lg text-gray-700">{{ animeData.description }}</p>
+        <p class="text-lg text-muted-foreground">{{ animeData.description }}</p>
         <div class="flex flex-wrap gap-2">
           <Badge variant="secondary">{{ animeData.status }}</Badge>
           <Badge variant="outline">{{ animeData.user_status }}</Badge>

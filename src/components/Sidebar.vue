@@ -8,7 +8,8 @@ import {Separator} from '@/components/ui/separator'
   <div class="w-64 bg-muted/60 text-foreground h-full flex flex-col">
     <div class="p-4 border-b border-slate-700">
       <h1 class="text-2xl font-bold flex items-center">
-        <Tv class="mr-2"/>
+        <img src="~/assets/img/logo.svg" alt="Logo" class="mr-2 w-10 h-10">
+<!--        <Tv class="mr-2"/>-->
         AnimeTracker
       </h1>
     </div>
