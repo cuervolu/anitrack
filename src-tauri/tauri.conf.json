@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "anitrack",
+  "productName": "AniTrack",
   "version": "0.1.0",
   "identifier": "com.anitrack.app",
   "build": {
@@ -10,6 +10,7 @@
     "beforeBuildCommand": "bun generate"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "AniTrack",
@@ -47,6 +48,14 @@
     }
   },
   "bundle": {
+    "publisher": "Cuervolu",
+    "createUpdaterArtifacts": true,
+    "license": "MIT",
+    "licenseFile": "../LICENSE",
+    "category": "Utility",
+    "copyright": "Cuervolu",
+    "longDescription": "AniTrack is a desktop application that allows you to track your favorite anime series and movies.",
+    "shortDescription": "Track your favorite anime series and movies.",
     "active": true,
     "targets": "all",
     "icon": [
