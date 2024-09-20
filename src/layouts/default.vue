@@ -1,38 +1,24 @@
-<!-- layouts/default.vue -->
 <script setup lang="ts">
-import { Search } from 'lucide-vue-next'
-import { Input } from "@/components/ui/input"
 import Sidebar from "~/components/Sidebar.vue";
+import TitleBar from "~/components/TitleBar.vue";
 
 useColorMode();
 </script>
 
 <template>
-  <div class="flex h-screen bg-background">
-    <Sidebar />
-    <div class="flex-1 flex flex-col">
-      <header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-6">
-        <div class="flex-1">
-          <h1 class="text-lg font-semibold">AniTrack</h1>
+  <div class="flex flex-col h-screen">
+    <TitleBar title="main" class="fixed top-0 left-0 right-0 z-50" bg-color="bg-muted/60"/>
+    <div class="flex flex-1 mt-5">
+      <Sidebar class="mt-5"/>
+      <div class="flex-1 flex flex-col overflow-auto mt-10 relative">
+        <div class="absolute inset-0 overflow-auto">
+          <slot/>
         </div>
-        <div class="flex items-center gap-4">
-          <form>
-            <div class="relative">
-              <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                  type="search"
-                  placeholder="Search anime..."
-                  class="w-64 pl-8"
-              />
-            </div>
-          </form>
-        </div>
-      </header>
-      <main class="flex-1 overflow-y-auto">
-        <div class="container mx-auto p-6">
-          <slot></slot>
-        </div>
-      </main>
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>

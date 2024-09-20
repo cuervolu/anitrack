@@ -1,4 +1,3 @@
-use tauri::Manager;
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_log::RotationStrategy;
 

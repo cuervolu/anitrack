@@ -1,60 +1,41 @@
-<script setup lang="ts">
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Tv, ListPlus, BarChart2, Search, Heart, Clock} from "lucide-vue-next";
-
-const features = [
-  {
-    icon: ListPlus,
-    title: "Anime Management",
-    description: "Add, edit, and remove anime from your collection with ease."
-  },
-  {
-    icon: Tv,
-    title: "Viewing and Tracking",
-    description: "Keep track of your watching progress and view detailed information about each anime."
-  },
-  {
-    icon: BarChart2,
-    title: "Categorization",
-    description: "Sort and categorize your anime by status, completion, and genre."
-  },
-  {
-    icon: Heart,
-    title: "Customizable Lists",
-    description: "Create and manage custom lists, including your favorites."
-  },
-  {
-    icon: Search,
-    title: "Search and Filtering",
-    description: "Easily find anime in your collection with powerful search and filtering options."
-  },
-  {
-    icon: Clock,
-    title: "Statistics",
-    description: "View your watching statistics and total viewing time."
-  },
-];
+<script lang="ts" setup>
+import {Search, PlusCircle} from 'lucide-vue-next'
+import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
+import {ScrollArea} from '@/components/ui/scroll-area'
 </script>
 
 <template>
-  <div class="space-y-6">
-    <h2 class="text-3xl font-bold tracking-tight">Welcome to AniTrack</h2>
-    <p class="text-muted-foreground">
-      Manage and track your favorite anime series and movies with ease.
-    </p>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <Card v-for="(feature, index) in features" :key="index">
-        <CardHeader>
-          <div class="flex items-center gap-4">
-            <component :is="feature.icon" class="h-8 w-8"/>
-            <CardTitle>{{ feature.title }}</CardTitle>
+  <div>
+    <header class="p-4 border-b flex justify-between items-center">
+      <div class="flex items-center">
+        <Input placeholder="Buscar anime..." class="w-64 mr-2"/>
+        <Button variant="ghost" size="icon">
+          <Search class="h-4 w-4"/>
+        </Button>
+      </div>
+      <Button>
+        <PlusCircle class="mr-2 h-4 w-4"/>
+        Añadir Anime
+      </Button>
+    </header>
+    <ScrollArea class="flex-1 p-4">
+      <h2 class="text-2xl font-bold mb-4">Lista de Animes</h2>
+      <div class="grid gap-4">
+        <div v-for="i in 5" :key="i"
+             class="flex items-center space-x-4 p-4 bg-muted/40 rounded-lg shadow">
+          <img
+              :src="`/placeholder.svg?height=80&width=60&text=Anime ${i}`"
+              :alt="`Anime ${i}`"
+              class="w-15 h-20 object-cover rounded"
+          />
+          <div>
+            <h3 class="font-bold">Anime Título {{ i }}</h3>
+            <p class="text-sm text-gray-500">Episodios vistos: 5/12</p>
           </div>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>{{ feature.description }}</CardDescription>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </div>
+    </ScrollArea>
   </div>
 </template>
 

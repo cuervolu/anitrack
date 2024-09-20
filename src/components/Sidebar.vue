@@ -1,93 +1,40 @@
-<!-- components/Sidebar.vue -->
-<script setup lang="ts">
-import {
-  ListPlus,
-  Edit,
-  Trash2,
-  List,
-  Eye,
-  BarChart2,
-  Heart,
-  Clock,
-  type LucideIcon
-} from 'lucide-vue-next'
-import {Button} from "@/components/ui/button"
-import {ScrollArea} from "@/components/ui/scroll-area"
-
-type ButtonVariant =
-    "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link"
-    | null
-    | undefined
-
-interface MenuItem {
-  label: string;
-  icon: LucideIcon;
-  variant: ButtonVariant;
-}
-
-interface MenuSection {
-  title: string;
-  items: MenuItem[];
-}
-
-const menuItems: MenuSection[] = [
-  {
-    title: 'Manage Anime',
-    items: [
-      {label: 'Add New Anime', icon: ListPlus, variant: 'secondary'},
-      {label: 'Edit Anime', icon: Edit, variant: 'ghost'},
-      {label: 'Remove Anime', icon: Trash2, variant: 'ghost'},
-    ],
-  },
-  {
-    title: 'View Anime',
-    items: [
-      {label: 'All Anime', icon: List, variant: 'ghost'},
-      {label: 'Anime Details', icon: Eye, variant: 'ghost'},
-    ],
-  },
-  {
-    title: 'Categories',
-    items: [
-      {label: 'By Status', icon: BarChart2, variant: 'ghost'},
-      {label: 'By Completion', icon: Clock, variant: 'ghost'},
-    ],
-  },
-  {
-    title: 'Lists',
-    items: [
-      {label: 'Favorites', icon: Heart, variant: 'ghost'},
-    ],
-  },
-]
+<script lang="ts" setup>
+import {Tv, Home, Calendar, Settings} from 'lucide-vue-next'
+import {Button} from '@/components/ui/button'
+import {Separator} from '@/components/ui/separator'
 </script>
 
 <template>
-  <div class="w-64 h-full border-r bg-background">
-    <ScrollArea class="h-full">
-      <div class="space-y-4 py-4">
-        <div v-for="(section, index) in menuItems" :key="index" class="px-3 py-2">
-          <h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">
-            {{ section.title }}
-          </h2>
-          <div class="space-y-1">
-            <Button
-                v-for="(item, itemIndex) in section.items"
-                :key="itemIndex"
-                :variant="item.variant"
-                class="w-full justify-start"
-            >
-              <component :is="item.icon" class="mr-2 h-4 w-4"/>
-              {{ item.label }}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </ScrollArea>
+  <div class="w-64 bg-muted/60 text-foreground h-full flex flex-col">
+    <div class="p-4 border-b border-slate-700">
+      <h1 class="text-2xl font-bold flex items-center">
+        <Tv class="mr-2"/>
+        AnimeTracker
+      </h1>
+    </div>
+    <nav class="flex-1 py-4">
+      <Button variant="ghost" class="w-full justify-start py-2">
+        <NuxtLink to="/" class="flex items-center w-full">
+          <Home class="mr-3 h-5 w-5"/>
+          Inicio
+        </NuxtLink>
+      </Button>
+      <Button variant="ghost" class="w-full justify-start py-2">
+        <NuxtLink to="/calendario" class="flex items-center w-full">
+          <Calendar class="mr-3 h-5 w-5"/>
+          Calendario
+        </NuxtLink>
+      </Button>
+      <Button variant="ghost" class="w-full justify-start py-2">
+        <NuxtLink to="/configuracion" class="flex items-center w-full">
+          <Settings class="mr-3 h-5 w-5"/>
+          Configuración
+        </NuxtLink>
+      </Button>
+    </nav>
+    <div class="mt-auto p-4 mb-5">
+      <Separator class="my-2"/>
+      <p class="text-sm text-center ">Made with ❤️ by Cuervolu</p>
+    </div>
   </div>
 </template>
