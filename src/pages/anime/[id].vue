@@ -8,7 +8,7 @@ import { Progress } from "~/components/ui/progress"
 import { Separator } from "~/components/ui/separator"
 import { Skeleton } from "~/components/ui/skeleton"
 import type { Anime, Episode } from '@/types'
-
+import NoImage from '~/assets/img/No_Image_Available.webp'
 const route = useRoute()
 const animeStore = useAnimeStore()
 const id = Number(route.params.id)
@@ -31,7 +31,7 @@ const watchedPercentage = computed(() => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-2">
     <div class="mb-6">
       <NuxtLink to="/" class="inline-flex items-center">
         <Button variant="ghost">
@@ -74,7 +74,7 @@ const watchedPercentage = computed(() => {
     <div v-else-if="animeData" class="grid md:grid-cols-3 gap-8">
       <div class="md:col-span-1">
         <img
-            :src="animeData.image_path || '/placeholder.svg?height=600&width=400&text=No Image'"
+            :src="animeData.image_path || NoImage"
             :alt="animeData.title"
             class="rounded-lg shadow-lg w-full"
         />

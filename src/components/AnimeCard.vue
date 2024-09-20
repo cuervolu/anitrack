@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Card, CardContent } from '@/components/ui/card'
 import type { Anime } from '@/types'
+import NoImage from '~/assets/img/No_Image_Available.webp'
 
 defineProps<{
   anime: Anime
@@ -12,7 +13,7 @@ defineProps<{
     <Card class="transition-shadow hover:shadow-md">
       <CardContent class="flex items-center space-x-4 p-4">
         <img
-            :src="anime.image_path || `/placeholder.svg?height=80&width=60&text=${anime.title}`"
+            :src="anime.image_path || NoImage"
             :alt="anime.title"
             class="w-15 h-20 object-cover rounded"
         />

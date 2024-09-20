@@ -21,13 +21,13 @@ import {Separator} from '@/components/ui/separator'
         </NuxtLink>
       </Button>
       <Button variant="ghost" class="w-full justify-start py-2">
-        <NuxtLink to="/calendario" class="flex items-center w-full">
+        <NuxtLink to="/" class="flex items-center w-full">
           <Calendar class="mr-3 h-5 w-5"/>
           Calendario
         </NuxtLink>
       </Button>
       <Button variant="ghost" class="w-full justify-start py-2">
-        <NuxtLink to="/configuracion" class="flex items-center w-full">
+        <NuxtLink to="/settings" class="flex items-center w-full">
           <Settings class="mr-3 h-5 w-5"/>
           Configuración
         </NuxtLink>
